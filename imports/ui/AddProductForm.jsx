@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Products } from '../api/products';
 
 const AddProductForm = () => {
   const [name, setName] = useState('');
@@ -7,9 +8,16 @@ const AddProductForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Product added:\nName: ${name}\nPrice: ${price}\nDescription: ${description}`);
-    
-    // TODO: Save to database in Module 6
+
+    Products.insert({
+      name,
+      price: parseFloat(price),
+      description,
+      createdAt: new Date(),
+    });
+
+    alert("Product saved to database!");
+
     setName('');
     setPrice('');
     setDescription('');
